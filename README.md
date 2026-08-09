@@ -26,7 +26,7 @@
 ## 🖥️ Portfolio Preview
 
 <p align="center">
-  <img src="./portfolio-preview.png" alt="ArchitVerse Portfolio Preview" width="900">
+  <img src="./portfolio_preview.png" alt="ArchitVerse Portfolio Preview" width="900">
 </p>
 
 ---
