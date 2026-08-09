@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Archit | AI & ML Engineer -- immersive 3D portfolio built with HTML, CSS, JavaScript, and Three.js."
+    />
+    <title>Archit | AI &amp; ML Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+:root {
+  --bg: #050505;
+  --bg-soft: #0d0d0d;
+  --panel: rgba(16, 16, 16, 0.7);
+  --panel-strong: rgba(10, 10, 10, 0.88);
+  --line: rgba(255, 0, 51, 0.2);
+  --primary: #ff0033;
+  --primary-strong: #d20028;
+  --text: rgba(255, 255, 255, 0.88);
+  --text-soft: rgba(255, 255, 255, 0.6);
+  --text-faint: rgba(255, 255, 255, 0.35);
+  --shadow: rgba(255, 0, 51, 0.25);
+  --radius: 22px;
+  --max-width: 1200px;
+  --transition: 220ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 0, 51, 0.1), transparent 25%),
+    linear-gradient(180deg, #050505 0%, #080808 100%);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+ul {
+  margin-top: 0;
+}
+
+.container {
+  width: min(var(--max-width), calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.section {
+  position: relative;
+  padding: 6rem 0;
+}
+
+.section-heading {
+  position: relative;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.section-heading h2 {
+  margin-bottom: 0.4rem;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.section-heading h2 span,
+.hero-copy h2,
+.site-header .brand {
+  color: var(--primary);
+}
+
+.section-heading p,
+.eyebrow {
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.glass-card {
+  background: rgba(12, 12, 12, 0.7);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: var(--radius);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(7, 7, 7, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 82px;
+}
+
+.brand {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.nav-menu a {
+  position: relative;
+  transition: color var(--transition);
+}
+
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus-visible {
+  color: var(--text);
+}
+
+.nav-menu a:hover::after,
+.nav-menu a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--text);
+  border-radius: 999px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 0.9rem 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-family: "JetBrains Mono", monospace;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, rgba(255, 0, 51, 0.2), rgba(255, 0, 51, 0.08));
+  box-shadow: 0 0 24px rgba(255, 0, 51, 0.15);
+  border-color: rgba(255, 0, 51, 0.3);
+  color: var(--text);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+}
+
+.small {
+  padding: 0.7rem 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 2rem;
+  width: min(var(--max-width), calc(100% - 2rem));
+}
+
+.hero-copy {
+  max-width: 40rem;
+}
+
+.eyebrow {
+  margin-bottom: 1.5rem;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-size: clamp(3.4rem, 7vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.hero-copy h2 {
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.02em;
+}
+
+.tagline {
+  max-width: 34rem;
+  color: var(--text-soft);
+  font-size: 1.08rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.status-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 0, 51, 0.2);
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  width: 1.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 0, 51, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0.45rem;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 0.25rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 0, 51, 0.7);
+  animation: scrollPulse 1.5s ease-in-out infinite;
+}
+
+.about-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.about-card {
+  max-width: 42rem;
+  width: 100%;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.experience-grid .subheading {
+  grid-column: 1 / -1;
+}
+
+.about-card,
+.info-card,
+.project-card,
+.github-card,
+.contact-card {
+  padding: 1.5rem 1.5rem;
+}
+
+.about-card p {
+  color: var(--text-soft);
+  font-size: 1.06rem;
+  margin-bottom: 1.5rem;
+}
+
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1rem;
+  color: var(--text-faint);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem;
+}
+
+.subheading {
+  color: var(--primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.info-card h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1.05rem;
+}
+
+.info-card p {
+  margin-bottom: 0;
+  color: var(--primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+}
+
+.info-card span,
+.info-card small {
+  display: block;
+  color: var(--text-faint);
+  font-size: 0.75rem;
+}
+
+.info-card ul {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--text-soft);
+}
+
+.info-card li + li {
+  margin-top: 0.5rem;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.info-header span {
+  white-space: nowrap;
+}
+
+.skills-orbit {
+  position: relative;
+  width: min(60rem, 100%);
+  height: 31rem;
+  margin: 0 auto 2rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.orbit-axis {
+  position: absolute;
+  width: min(32rem, 78%);
+  height: min(32rem, 78%);
+  border: 1px solid rgba(255, 0, 51, 0.2);
+  border-radius: 50%;
+}
+
+.skill-nodes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.skill-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 0, 51, 0.3);
+  background: rgba(10, 10, 10, 0.7);
+  color: var(--text);
+  font-size: 0.72rem;
+  font-family: "JetBrains Mono", monospace;
+  box-shadow: 0 0 20px rgba(255, 0, 51, 0.15);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.skill-node:hover,
+.skill-node.active {
+  border-color: rgba(255, 0, 51, 0.75);
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 24px rgba(255, 0, 51, 0.35);
+}
+
+.skill-tooltip {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 12rem;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 0, 51, 0.25);
+  border-radius: 12px;
+  background: rgba(8, 8, 8, 0.7);
+  color: var(--text-soft);
+  font-size: 0.72rem;
+  font-family: "JetBrains Mono", monospace;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.skill-tooltip.visible {
+  opacity: 1;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.skill-tile {
+  border: 1px solid rgba(255, 0, 51, 0.2);
+  border-radius: 14px;
+  background: rgba(10, 10, 10, 0.6);
+  padding: 0.9rem 0.75rem;
+  text-align: center;
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.73rem;
+}
+
+.skill-tile span {
+  display: block;
+  color: var(--text-faint);
+  font-size: 0.62rem;
+  margin-top: 0.38rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.project-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 11rem;
+  background: linear-gradient(135deg, rgba(255, 0, 51, 0.12), rgba(255, 255, 255, 0.02));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.project-thumb.alt {
+  background: linear-gradient(135deg, rgba(67, 74, 91, 0.2), rgba(255, 0, 51, 0.08));
+}
+
+.project-thumb.accent {
+  background: linear-gradient(135deg, rgba(255, 0, 51, 0.18), rgba(255, 255, 255, 0.02));
+}
+
+.project-thumb.dark {
+  background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(255, 0, 51, 0.08));
+}
+
+.thumb-icon {
+  width: 5rem;
+  height: 5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 0, 51, 0.18);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: rgba(255, 0, 51, 0.5);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.project-body {
+  padding: 1.4rem 1.2rem 1.2rem;
+}
+
+.project-body h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.project-body p {
+  color: var(--text-soft);
+  margin-bottom: 1rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag-list span,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 0, 51, 0.2);
+  background: rgba(255, 0, 51, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.62rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.timeline-track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(255, 0, 51, 0.22);
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 4rem 1fr;
+  align-items: center;
+}
+
+.timeline-item.reverse {
+  direction: rtl;
+}
+
+.timeline-item.reverse > * {
+  direction: ltr;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 16px rgba(255, 0, 51, 0.7);
+}
+
+.timeline-card {
+  padding: 1.25rem 1.3rem;
+}
+
+.timeline-item:nth-child(odd) .timeline-card {
+  grid-column: 1;
+}
+
+.timeline-item:nth-child(even) .timeline-card {
+  grid-column: 3;
+}
+
+.timeline-date {
+  grid-column: 2;
+  justify-self: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.timeline-card h3 {
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+
+.timeline-card p {
+  margin-bottom: 0.45rem;
+  color: var(--primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+}
+
+.timeline-card small {
+  color: var(--text-soft);
+}
+
+.github-card {
+  padding: 1.5rem 1.2rem;
+}
+
+.github-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.github-header strong {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.github-header span {
+  color: var(--text-faint);
+  font-size: 0.75rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.contribution-grid {
+  display: flex;
+  gap: 0.24rem;
+  overflow-x: auto;
+  padding-bottom: 0.3rem;
+}
+
+.contribution-grid .week {
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 0.24rem;
+}
+
+.contribution-grid .day {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 0.2rem;
+}
+
+.level-0 { background: rgba(255, 0, 51, 0.04); }
+.level-1 { background: rgba(255, 0, 51, 0.25); }
+.level-2 { background: rgba(255, 0, 51, 0.48); }
+.level-3 { background: rgba(255, 0, 51, 0.72); }
+.level-4 { background: rgba(255, 0, 51, 1); box-shadow: 0 0 6px rgba(255, 0, 51, 0.6); }
+.level-empty { background: transparent; }
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  color: var(--text-faint);
+  font-size: 0.62rem;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.legend-scale {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.legend-scale span {
+  display: block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 0.2rem;
+}
+
+.narrow {
+  max-width: 52rem;
+}
+
+.resume-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.resume-card p {
+  color: var(--text-soft);
+  font-size: 1.02rem;
+  max-width: 34rem;
+  margin: 0;
+}
+
+.resume-download-btn {
+  padding: 1rem 2rem;
+}
+
+.contact-card {
+  padding: 2rem;
+}
+
+form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.field-group label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  font-family: "JetBrains Mono", monospace;
+}
+
+.field-group input,
+.field-group textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.field-group input::placeholder,
+.field-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.field-group input:focus,
+.field-group textarea:focus {
+  outline: none;
+  border-color: rgba(255, 0, 51, 0.5);
+  box-shadow: 0 0 20px rgba(255, 0, 51, 0.13);
+}
+
+.form-status {
+  min-height: 1.5rem;
+  margin: 0;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--primary);
+}
+
+.contact-links {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.2rem;
+  text-align: center;
+}
+
+.contact-links > span {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--text-faint);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.link-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.link-row a {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.72rem;
+  font-family: "JetBrains Mono", monospace;
+  color: var(--text-soft);
+}
+
+.site-footer {
+  padding: 1.6rem 0 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+  text-align: center;
+  color: var(--text-faint);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  from { transform: scale(0.96); opacity: 0.7; }
+  to { transform: scale(1.04); opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(0.8rem); opacity: 0; }
+}
+
+/* ============================
+   3D CANVAS LAYERS
+   ============================ */
+
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+.avatar-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(29rem, 100%);
+  height: 30rem;
+  overflow: hidden;
+  background: rgba(16, 16, 16, 0.65);
+}
+
+#avatarCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+#avatarCanvas:active {
+  cursor: grabbing;
+}
+
+/* ============================
+   ENHANCED RED GLOW SYSTEM
+   ============================ */
+
+.glow-card {
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.glow-card:hover {
+  border-color: rgba(255, 0, 51, 0.6);
+  box-shadow: 0 0 40px rgba(255, 0, 51, 0.28), 0 0 80px rgba(255, 0, 51, 0.08);
+  transform: translateY(-4px);
+}
+
+.glow-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  box-shadow: 0 0 0 1px rgba(255, 0, 51, 0.5), 0 0 26px rgba(255, 0, 51, 0.55);
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.glow-btn:hover::after,
+.glow-btn:focus-visible::after {
+  opacity: 1;
+}
+
+/* ============================
+   AI CHATBOT WIDGET
+   ============================ */
+
+.chat-widget {
+  position: fixed;
+  right: 1.6rem;
+  bottom: 1.6rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.9rem;
+}
+
+.chat-toggle {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 0, 51, 0.35), rgba(255, 0, 51, 0.1));
+  border: 1px solid rgba(255, 0, 51, 0.5);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(255, 0, 51, 0.35);
+  animation: chatPulse 2.6s ease-in-out infinite;
+}
+
+.chat-toggle-icon {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+@keyframes chatPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.3); }
+  50% { box-shadow: 0 0 34px rgba(255, 0, 51, 0.6); }
+}
+
+.chat-panel {
+  width: min(22rem, 88vw);
+  height: 30rem;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.chat-panel.open {
+  display: flex;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: var(--text-soft);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.chat-message {
+  max-width: 85%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.chat-message.bot {
+  align-self: flex-start;
+  background: rgba(255, 0, 51, 0.08);
+  border: 1px solid rgba(255, 0, 51, 0.2);
+  color: var(--text);
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.chat-message.typing {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.chat-form input {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.chat-form input:focus {
+  outline: none;
+  border-color: rgba(255, 0, 51, 0.5);
+  box-shadow: 0 0 14px rgba(255, 0, 51, 0.15);
+}
+
+.chat-send {
+  width: 2.6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 51, 0.35);
+  background: rgba(255, 0, 51, 0.15);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.chat-send:hover {
+  background: rgba(255, 0, 51, 0.3);
+}
+
+@media (max-width: 960px) {
+  .about-grid,
+  .experience-grid,
+  .hero-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item::before,
+  .timeline-track {
+    left: 1.4rem;
+    transform: none;
+  }
+
+  .timeline-card {
+    margin-left: 2.4rem;
+    grid-column: 1 !important;
+  }
+
+  .timeline-date {
+    grid-column: 1;
+    justify-self: start;
+    margin-left: 2.6rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: relative;
+    flex-wrap: wrap;
+    padding-block: 0.8rem;
+  }
+
+  .nav-menu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem 0 0.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .section {
+    padding: 4.5rem 0;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skills-orbit {
+    height: 25rem;
+  }
+
+  .orbit-axis {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .skill-node {
+    min-width: 4rem;
+    font-size: 0.64rem;
+  }
+
+  .chat-panel {
+    height: 22rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-copy h1 {
+    font-size: 3rem;
+  }
+
+  .hero-copy h2 {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-card {
+    height: 24rem;
+  }
+
+  .status-badge {
+    letter-spacing: 0.08em;
+    font-size: 0.55rem;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <!-- Fullscreen 3D background canvas, sits behind everything -->
+    <canvas id="bgCanvas"></canvas>
+
+    <header class="site-header">
+      <nav class="nav container">
+        <a href="#hero" class="brand" aria-label="Archit home">Archit Prasad</a>
+
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#github">GitHub</a>
+          <a href="#resume">Resume</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <a href="#contact" class="btn btn-primary nav-cta">Hire Me</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero" class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">// initializing portfolio.exe</p>
+            <h1>Archit Prasad</h1>
+            <h2>AI &amp; ML Engineer</h2>
+            <p class="tagline">
+              Aspiring AI &amp; ML Engineer focused on developing intelligent systems, machine learning models, and AI-powered applications that solve real-world challenges with scalable and efficient solutions.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary glow-btn">View Projects</a>
+              <a href="#contact" class="btn btn-secondary glow-btn">Get in Touch</a>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="glass-card avatar-card">
+              <!-- 3D rotating avatar geometry renders here -->
+              <canvas id="avatarCanvas"></canvas>
+              <div class="status-badge">Avatar Display Pod</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
+          <span></span>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>About <span>Me</span></h2>
+            <p>// WHO AM I?</p>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-card glass-card glow-card reveal">
+              <p>
+                I am an AI &amp; ML Engineer passionate about leveraging Artificial Intelligence, Machine Learning, and Deep Learning to build intelligent, scalable, and impactful applications. From developing predictive models and AI-powered solutions to deploying end-to-end projects, I enjoy turning complex problems into innovative products.
+              </p>
+              <div class="meta-list">
+                <span>Delhi, India</span>
+                <span>prasadarchit02@gmail.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Experience &amp; <span>Education</span></h2>
+            <p>// career.log</p>
+          </div>
+
+          <div class="experience-grid">
+            <div class="subheading reveal">Internships</div>
+
+            <div class="info-card glass-card glow-card reveal">
+              <div class="info-header">
+                <div>
+                  <h3>Artificial Intelligence Trainee</h3>
+                  <p>Slog Solutions</p>
+                </div>
+                <span>June 2024 - July 2024</span>
+              </div>
+              <ul>
+                <li>Worked on developing and maintaining AI-powered features for the company's software products.</li>
+                <li>Developed a Artificial Intelligence model for Sales Forecasting.</li>
+              </ul>
+            </div>
+
+            <div class="info-card glass-card glow-card reveal">
+              <div class="info-header">
+                <div>
+                  <h3>AI &amp; Data Analytics Intern</h3>
+                  <p>Company Name</p>
+                </div>
+                <span>July 2025 - August 2025</span>
+              </div>
+              <ul>
+                <li>Developed and deployed a Machine Learning model for prediction of EV charging Stations.</li>
+                <li>Developed and deployed a Machine Learning pipeline for data analysis and visualization.</li>
+              </ul>
+            </div>
+
+            <div class="subheading reveal">Education</div>
+            <div class="info-card glass-card glow-card reveal">
+              <h3>B.Tech in Computer Science with AI/ML Specialization</h3>
+              <p>Uttarakhand Technical University</p>
+              <span>2023 - 2027</span>
+              <small>Relevant coursework: Data Structures, Data Analysis, Machine Learning, Deep Learning.</small>
+            </div>
+
+            <div class="subheading reveal">Academic Achievements</div>
+            <div class="info-card glass-card glow-card reveal">
+              <h3>2nd Position in Academics -- Semester 4</h3>
+              <p>Academic Performance</p>
+            </div>
+            <div class="info-card glass-card glow-card reveal">
+              <h3>2nd Position in Academics -- Semester 5</h3>
+              <p>Academic Performance</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Technical <span>Skills</span></h2>
+            <p>Orbital proficiency map</p>
+          </div>
+
+          <div class="skills-orbit reveal">
+            <div class="orbit-axis"></div>
+            <div id="skillTooltip" class="skill-tooltip">Select a skill</div>
+            <div id="skillNodes" class="skill-nodes" aria-label="Technical skills"></div>
+          </div>
+
+          <div class="skills-grid reveal" id="skillsGrid"></div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Featured <span>Projects</span></h2>
+            <p>Selected work &amp; experiments</p>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project-card glass-card glow-card reveal">
+              <div class="project-thumb">
+                <div class="thumb-icon">{ }</div>
+              </div>
+              <div class="project-body">
+                <h3>3D Immersive Portfolio</h3>
+                <p>This very site -- a black &amp; red glassmorphism portfolio with Three.js visuals and a Groq-powered AI assistant.</p>
+                <div class="tag-list">
+                  <span>Three.js</span>
+                  <span>Groq AI</span>
+                  <span>Glassmorphism</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/archit7py" target="_blank" rel="noreferrer">GitHub &rarr;</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-card glow-card reveal">
+              <div class="project-thumb alt">
+                <div class="thumb-icon">{ }</div>
+              </div>
+              <div class="project-body">
+                <h3>Resume Parser &amp; Job Matcher</h3>
+                <p>Python system using Groq's LLM API to score and rank resumes against a job description.</p>
+                <div class="tag-list">
+                  <span>Python</span>
+                  <span>Groq</span>
+                  <span>Pydantic</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/archit7py/Resume-Evaluator" target="_blank" rel="noreferrer">GitHub &rarr;</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-card glow-card reveal">
+              <div class="project-thumb accent">
+                <div class="thumb-icon">{ }</div>
+              </div>
+              <div class="project-body">
+                <h3>CIFAR-10 Image Classifier</h3>
+                <p>Custom CNN built in PyTorch, trained on a T4 GPU via Google Colab.</p>
+                <div class="tag-list">
+                  <span>PyTorch</span>
+                  <span>CNN</span>
+                  <span>Colab</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/archit7py/cifar10-image-classifier" target="_blank" rel="noreferrer">GitHub &rarr;</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass-card glow-card reveal">
+              <div class="project-thumb dark">
+                <div class="thumb-icon">{ }</div>
+              </div>
+              <div class="project-body">
+                <h3>EV Charging Point Prediction</h3>
+                <p>Developed a machine learning model to predict the optimal locations for EV charging stations.</p>
+                <div class="tag-list">
+                  <span>Machine Learning</span>
+                  <span>Python</span>
+                  <span>Pandas</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/archit7py/EV-Charging-Point-Prediction" target="_blank" rel="noreferrer">GitHub &rarr;</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="achievements" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Achievements &amp; <span>Milestones</span></h2>
+            <p>Certifications, awards &amp; experience</p>
+          </div>
+
+          <div class="timeline reveal">
+            <div class="timeline-track"></div>
+
+            <!-- TODO: replace with real achievements from resume -->
+            <div class="timeline-item">
+              <div class="timeline-card glass-card glow-card">
+                <div class="timeline-meta">
+                  <span class="badge">Achievement</span>
+                  <span class="timeline-icon">&#128188;</span>
+                </div>
+                <h3>Ranked 2nd Position in Academics -- Semester 4</h3>
+                <p>GRD-IMT</p>
+                <small>Secured 2nd position academically in 4th semester</small>
+              </div>
+              <div class="timeline-date">2025</div>
+            </div>
+
+            <div class="timeline-item reverse">
+              <div class="timeline-card glass-card glow-card">
+                <div class="timeline-meta">
+                  <span class="badge">Achievement</span>
+                  <span class="timeline-icon">&#128188;</span>
+                </div>
+                <h3>Ranked 2nd Position in Academics -- Semester 5</h3>
+                <p>GRD-IMT</p>
+                <small>Secured 2nd position academically in 5th semester</small>
+              </div>
+              <div class="timeline-date"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="github" class="section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>GitHub <span>Activity</span></h2>
+            <p>Contribution heatmap</p>
+          </div>
+
+          <div class="glass-card github-card glow-card reveal">
+            <div class="github-header">
+              <div>
+                <strong id="contribTotal">0</strong>
+                <span>contributions in the last year</span>
+              </div>
+              <a href="https://github.com/archit7py" target="_blank" rel="noreferrer" class="btn btn-secondary small glow-btn">View Profile &rarr;</a>
+            </div>
+
+            <div id="contributionGrid" class="contribution-grid" aria-live="polite"></div>
+
+            <div class="legend" aria-label="Contribution legend">
+              <span>Less</span>
+              <div class="legend-scale">
+                <span class="level level-0"></span>
+                <span class="level level-1"></span>
+                <span class="level level-2"></span>
+                <span class="level level-3"></span>
+                <span class="level level-4"></span>
+              </div>
+              <span>More</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resume" class="section">
+        <div class="container narrow">
+          <div class="section-heading reveal">
+            <h2>Download <span>Resume</span></h2>
+            <p>// export--format = pdf</p>
+          </div>
+
+          <div class="glass-card resume-card glow-card reveal">
+            <p>Want the full picture -- skills, projects, experience, and education in one document? Grab a copy below.</p>
+            <a href="resume.pdf" download="Archit_Prasad_Resume.pdf" class="btn btn-primary glow-btn resume-download-btn">
+              Download Resume &darr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container narrow">
+          <div class="section-heading reveal">
+            <h2>Get in <span>Touch</span></h2>
+            <p>Let's build something together</p>
+          </div>
+
+          <div class="glass-card contact-card glow-card reveal">
+            <form id="contactForm">
+              <div class="field-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+
+              <div class="field-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="field-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary full-width glow-btn">Send Message</button>
+              <p id="formStatus" class="form-status" aria-live="polite"></p>
+            </form>
+
+            <div class="contact-links">
+              <span>Or find me on</span>
+              <div class="link-row">
+                <a href="https://github.com/archit7py" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/archit-prasad-0379b8352/" target="_blank" rel="noreferrer">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built with MERN Stack</p>
+        <p>&copy; <span id="year"></span> Archit. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- AI Chatbot widget -->
+    <div id="chatWidget" class="chat-widget">
+      <button id="chatToggle" class="chat-toggle glow-btn" aria-label="Open AI chat">
+        <span class="chat-toggle-icon">AI</span>
+      </button>
+
+      <div id="chatPanel" class="chat-panel glass-card">
+        <div class="chat-header">
+          <span>Ask about Archit</span>
+          <button id="chatClose" class="chat-close" aria-label="Close chat">&#10005;</button>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+          <div class="chat-message bot">Hi! Ask me anything about Archit's skills, projects, or experience.</div>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Ask a question..." autocomplete="off" required />
+          <button type="submit" class="chat-send">&rarr;</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Three.js from CDN, no build step needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="github-activity.js"></script>
+  </body>
+</html>ve
